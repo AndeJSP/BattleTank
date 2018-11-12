@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
+#include "Tank.h"
 // #include "Runtime/Core/Public/Math/Vector2D.h"
 
 
@@ -29,6 +30,7 @@ void ATankPlayerController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
+	//UE_LOG(LogTemp, Warning, TEXT("working?"))
 }
 
 void ATankPlayerController::AimTowardsCrosshair()
@@ -61,10 +63,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection))
 	{
-		GetVectorHitLookLocation( LookDirection, OutHitLocation);
+		return GetVectorHitLookLocation( LookDirection, OutHitLocation);
 	}
 
-	return true;
+	return false;
 }
 
 bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector & LookDirection) const

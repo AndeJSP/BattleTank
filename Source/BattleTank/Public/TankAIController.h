@@ -4,13 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "Tank.h"
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "TankAIController.generated.h"
 
-
+class ATank;
 /**
  * 
  */
@@ -23,7 +22,6 @@ class BATTLETANK_API ATankAIController : public AAIController
 public:
 	virtual void Tick(float DeltaTIme) override;
 
-	ATank* GetControlledPawn();
 	virtual void BeginPlay() override;
-	ATank* GetPlayerTank();
+
 };
