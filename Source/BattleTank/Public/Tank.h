@@ -12,6 +12,7 @@
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
+class UTankMovementComponent;
 
 class AProjectile;
 
@@ -27,12 +28,16 @@ public:
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 	UFUNCTION(BlueprintCallable)
 	void SetTurretReference(UTankTurret* TurretToSet);
+
+
+
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr; 
-	
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
 
 
 private:
@@ -57,5 +62,7 @@ private:
 
 	float ReloadTimeInSeconds = 3;
 	double LastFireTime = 0;
+
+
 
 };

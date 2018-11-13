@@ -24,4 +24,6 @@ public:
 
 	virtual void BeginPlay() override;
 
+private:
+	float AcceptanceRadius= 300;
 };

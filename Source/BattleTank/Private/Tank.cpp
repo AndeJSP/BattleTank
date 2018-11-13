@@ -4,6 +4,7 @@
 #include "TankBarrel.h"
 #include "Projectile.h"
 //#include "Runtime/Core/Public/Unix/UnixPlatformTime.h"
+#include "TankMovementComponent.h"
 #include "TankAimingComponent.h"
 
 
@@ -26,6 +27,8 @@ void ATank::SetTurretReference(UTankTurret * TurretToSet)
 {
 	TankAimingComponent->SetTurretReference(TurretToSet);
 }
+
+
 
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
