@@ -12,6 +12,7 @@
 #include "TankPlayerController.generated.h"
 
 class ATank;
+class UTankAimingComponent;
 
 /**
  * 
@@ -32,6 +33,10 @@ public:
 	bool GetSightRayHitLocation(FVector& OutHitLocation) const;
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
 	bool GetVectorHitLookLocation( FVector LookDirection, FVector& HitLocation) const;
+
+protected:
+	UFUNCTION(BlueprintImplementableEvent)
+	void FoundAimingComponent(UTankAimingComponent* AimingCompRef);
 
 private:
 	UPROPERTY(EditAnywhere)

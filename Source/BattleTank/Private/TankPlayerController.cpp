@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "TankPlayerController.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"
 // #include "Runtime/Core/Public/Math/Vector2D.h"
 
@@ -9,6 +10,18 @@
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+
+	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	if (AimingComponent)
+	{
+		FoundAimingComponent(AimingComponent);
+	}
+	else {
+
+		// log
+	}
+
+
 	if (GetControlledTank())
 	{
 		UE_LOG(LogTemp, Warning, TEXT(" %s"), *(GetControlledTank()->GetName()))
@@ -31,6 +44,9 @@ void ATankPlayerController::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	AimTowardsCrosshair();
 	//UE_LOG(LogTemp, Warning, TEXT("working?"))
+
+	//auto TankForward = GetPawn()->GetRootComponent()->GetOwner()->GetActorForwardVector().GetSafeNormal();
+	//UE_LOG(LogTemp, Warning, TEXT("%s"), *TankForward.ToString())
 }
 
 void ATankPlayerController::AimTowardsCrosshair()
@@ -102,3 +118,12 @@ bool ATankPlayerController::GetVectorHitLookLocation(FVector LookDirection, FVec
 	return false;
 		
 }
+
+/*
+void ATankPlayerController::FoundAimingComponent(UTankAimingComponent* AimingCompRef)
+{
+
+
+
+}
+*/

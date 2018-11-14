@@ -15,3 +15,13 @@ void UTankTracks::SetThrottle(float Throttle)
 	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
 	TankRoot->AddForceAtLocation(ForceApplied,ForceLocation);
 }
+
+/*
+void UTankTracks::OnHit(UPrimitiveComponent* HitComponent,)
+{
+
+
+}
+*/
+
+
