@@ -6,17 +6,20 @@
 #include "GameFramework/Pawn.h"
 #include "Components/InputComponent.h"
 #include "Engine/World.h"
+#include "Math/UnrealMathUtility.h"
+//#include "Delegates/Delegate.h" 
 #include "Tank.generated.h"
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FTankDelegate);
 
 
 class UTankBarrel;
 class UTankTurret;
 class UTankAimingComponent;
 class UTankMovementComponent;
-
-
-
 class AProjectile;
+
+
 
 UCLASS()
 class BATTLETANK_API ATank : public APawn
@@ -24,6 +27,9 @@ class BATTLETANK_API ATank : public APawn
 	GENERATED_BODY()
 
 public:
+
+	FTankDelegate OnDeath;
+
 	void AimAt(FVector HitLocation);
 
 	UFUNCTION(BlueprintCallable)
@@ -35,6 +41,14 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = Firing)
 	void Fire();
+
+	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
+
+	// BlueprintPure erstellt uns eine Funktion die in Blueprints genutzt werden kann. Wir erhalten eine ReadOnly Function und können sicher sein, 
+	// dass die Func nichts im Owner(hier Tank) verändert oder setted.
+	// Get health in percent between 0 and 1
+	UFUNCTION(BlueprintPure)
+	float GetHealthPercent() const;
 
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr; 
@@ -65,6 +79,10 @@ private:
 	float ReloadTimeInSeconds = 3;
 	double LastFireTime = 0;
 
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	int32 StartingHealth = 100;
+	UPROPERTY(VisibleAnywhere, Category = Setup)
+	int32 CurrentHealth;
 
 
 };

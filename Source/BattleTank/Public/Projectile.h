@@ -4,7 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/DamageType.h"
 #include "Projectile.generated.h"
+
 
 class UProjectileMovementComponent;
 class UParticleSystemComponent;
@@ -32,6 +37,14 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void OnTimerExpire();
+
+	UPROPERTY(EditDefaultsOnly)
+	float DestroyDelay = 10.0;
+
+	UPROPERTY(EditDefaultsOnly)
+	float ProjectileDamage = 20;
 
 private:
 	UPROPERTY(VisibleAnywhere)

@@ -6,6 +6,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "PhysicsEngine/RadialForceComponent.h"
 
+
+
 // Sets default values
 AProjectile::AProjectile()
 {
@@ -48,6 +50,26 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 {
 	LaunchBlast->Deactivate();
 	ExplosionForce->FireImpulse();
+
+	UGameplayStatics::ApplyRadialDamage(
+		this,
+		ProjectileDamage,
+		RootComponent->GetComponentLocation(),
+		ExplosionForce->Radius,
+		UDamageType::StaticClass(),
+		TArray<AActor*>()				// damage all actors
+	);
+
+
+	FTimerHandle Timer;
+	GetWorld()->GetTimerManager().SetTimer(Timer, this, &AProjectile::OnTimerExpire, DestroyDelay, false);
+	
+
+
 }
 
+void AProjectile::OnTimerExpire()
+{
+	Destroy();
 
+}
